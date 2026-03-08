@@ -12,7 +12,7 @@ archives sessions on the Commens governance ledger via Claude Code's lifecycle h
 
 ```bash
 claude plugin marketplace add peircelabs/claude-commens
-claude plugin install commens-sessions@claude-commens
+claude plugin install sessions@commens
 ```
 
 ### From local directory
