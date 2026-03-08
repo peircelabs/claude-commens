@@ -73,8 +73,10 @@ commens_log() {
 
 commens_output_context() {
   local context="$1"
-  jq -n --arg ctx "$context" '{
+  local event="${2:-SessionStart}"
+  jq -n --arg ctx "$context" --arg evt "$event" '{
     "hookSpecificOutput": {
+      "hookEventName": $evt,
       "additionalContext": $ctx
     }
   }'
