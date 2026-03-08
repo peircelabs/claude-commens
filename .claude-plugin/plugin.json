@@ -1,0 +1,13 @@
+{
+  "name": "commens-sessions",
+  "version": "0.1.0",
+  "description": "Automated session persistence, audit logging, and governance via Hyperledger Fabric hooks and MCP tools.",
+  "author": {
+    "name": "peircelabs",
+    "url": "https://github.com/peircelabs"
+  },
+  "repository": "https://github.com/peircelabs/claude-commens",
+  "license": "ISC",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./.mcp.json"
+}

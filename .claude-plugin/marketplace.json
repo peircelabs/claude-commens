@@ -1,0 +1,17 @@
+{
+  "name": "claude-commens",
+  "owner": {
+    "name": "Peirce Labs",
+    "url": "https://github.com/peircelabs"
+  },
+  "metadata": {
+    "description": "Enterprise Agent Governance Fabric plugin for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "commens-sessions",
+      "source": ".",
+      "description": "Automated session persistence, audit logging, and governance via Hyperledger Fabric hooks and MCP tools."
+    }
+  ]
+}

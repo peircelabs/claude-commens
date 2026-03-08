@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "commens": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/launch-server.sh",
+      "args": [],
+      "env": {
+        "COMMENS_BIN": "${COMMENS_BIN:-${HOME}/.local/bin/commens}"
+      }
+    }
+  }
+}

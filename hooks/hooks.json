@@ -1,0 +1,63 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "matcher": "startup",
+      "hooks": [
+        {
+          "name": "commens-session-start",
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-start.sh",
+          "timeout": 10000,
+          "statusMessage": "Registering session on Commens ledger..."
+        }
+      ]
+    },
+    {
+      "event": "SessionStart",
+      "matcher": "resume",
+      "hooks": [
+        {
+          "name": "commens-session-resume",
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-resume.sh",
+          "timeout": 10000,
+          "statusMessage": "Resuming session on Commens ledger..."
+        }
+      ]
+    },
+    {
+      "event": "SessionEnd",
+      "hooks": [
+        {
+          "name": "commens-session-end",
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-end.sh",
+          "timeout": 15000
+        }
+      ]
+    },
+    {
+      "event": "PreCompact",
+      "hooks": [
+        {
+          "name": "commens-pre-compact",
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.sh",
+          "timeout": 10000
+        }
+      ]
+    },
+    {
+      "event": "Stop",
+      "hooks": [
+        {
+          "name": "commens-record-interaction",
+          "type": "command",
+          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/record-interaction.sh",
+          "timeout": 15000
+        }
+      ]
+    }
+  ]
+}
