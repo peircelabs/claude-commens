@@ -10,7 +10,6 @@ source "${SCRIPT_DIR}/lib/commens-hooks.sh" 2>/dev/null \
 
 bw_read_input
 bw_require_session_id
-bw_require_project
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 # Persist session ID for the rest of the session.
@@ -23,7 +22,6 @@ fi
   --model "${BW_MODEL:-}" \
   --source "resume" \
   --agent "claude-code" \
-  --project "$BW_PROJECT" \
   --json 2>/dev/null || true
 
 exit 0

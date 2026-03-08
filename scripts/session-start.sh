@@ -10,7 +10,6 @@ source "${SCRIPT_DIR}/lib/commens-hooks.sh" 2>/dev/null \
 
 bw_read_input
 bw_require_session_id
-bw_require_project
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 # Persist session ID for the rest of the session.
@@ -23,11 +22,10 @@ RESULT=$("$BW_BIN" register-session \
   --model "${BW_MODEL:-}" \
   --source "${BW_HOOK_SOURCE:-startup}" \
   --agent "claude-code" \
-  --project "$BW_PROJECT" \
   --json 2>/dev/null) || true
 
 if [ -n "$RESULT" ]; then
-  bw_output_context "Session $BW_SESSION_ID registered on Commens governance ledger for project $BW_PROJECT."
+  bw_output_context "Session $BW_SESSION_ID registered on Commens governance ledger."
 fi
 
 exit 0

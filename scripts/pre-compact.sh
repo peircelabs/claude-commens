@@ -10,14 +10,12 @@ source "${SCRIPT_DIR}/lib/commens-hooks.sh" 2>/dev/null \
 
 bw_read_input
 bw_require_session_id
-bw_require_project
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 CHECKPOINT_ARGS=(
   checkpoint-session
   --session-id "$BW_SESSION_ID"
   --checkpoint-type "pre_compact"
-  --project "$BW_PROJECT"
   --json
 )
 

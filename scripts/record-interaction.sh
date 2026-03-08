@@ -11,7 +11,6 @@ source "${SCRIPT_DIR}/lib/commens-hooks.sh" 2>/dev/null \
 
 bw_read_input
 bw_require_session_id
-bw_require_project
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 # Only proceed if we have a transcript file to parse.
@@ -98,7 +97,6 @@ INTERACTION_ID=$(printf "%s_%04d" "$BW_SESSION_ID" "$NEXT_SEQ")
   --model         "$INTERACTION_MODEL" \
   --agent-name    "claude-code" \
   --tool-calls    "$(echo "$TOOL_CALLS" | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')" \
-  --project       "$BW_PROJECT" \
   --json 2>/dev/null \
   && echo "$NEXT_SEQ" > "$COUNTER_FILE" \
   || bw_log "Failed to record interaction $INTERACTION_ID for session $BW_SESSION_ID"

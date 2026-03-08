@@ -25,11 +25,7 @@ claude --plugin-dir ./claude-commens
 ## Prerequisites
 
 1. **commens CLI** installed and available in PATH (or set `COMMENS_BIN`)
-2. **COMMENS_PROJECT_ID** environment variable set to your project ID
-
-```bash
-export COMMENS_PROJECT_ID=my-project
-```
+2. **Default project** configured via `commens config set defaultProject <name>` or a local `.commens/config.json`
 
 ## What It Does
 
@@ -42,8 +38,7 @@ export COMMENS_PROJECT_ID=my-project
 | **SessionEnd** | Archives the session with final metadata |
 
 All hooks are fire-and-forget — they never block Claude Code operation. If the
-`commens` binary is unavailable or `COMMENS_PROJECT_ID` is not set, hooks exit
-silently.
+`commens` binary is unavailable, hooks exit silently.
 
 ## MCP Tools
 

@@ -52,7 +52,6 @@ hook scripts — no manual MCP tool calls required from the agent.
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| COMMENS_PROJECT_ID | Yes | Project ID for all ledger operations |
 | COMMENS_BIN | No | Override path to commens binary |
 
 ## Code Style

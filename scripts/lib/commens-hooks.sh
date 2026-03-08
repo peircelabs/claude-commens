@@ -67,15 +67,6 @@ bw_require_session_id() {
   fi
 }
 
-bw_require_project() {
-  BW_PROJECT="${COMMENS_PROJECT_ID:-}"
-  if [ -z "$BW_PROJECT" ]; then
-    bw_log "COMMENS_PROJECT_ID not set; skipping."
-    exit 0
-  fi
-  export BW_PROJECT
-}
-
 # --- Logging ---
 
 bw_log() {
