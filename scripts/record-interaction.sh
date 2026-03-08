@@ -31,43 +31,61 @@ fi
 NEXT_SEQ=$((CURRENT_SEQ + 1))
 
 # Extract last user prompt from JSONL transcript.
+# Claude Code transcript format: top-level .type == "user", content at .message.content.
+# Filter out tool_result entries (arrays without text blocks) to find actual prompts.
 USER_PROMPT=$(jq -rs '
-  [.[] | select(.role == "user" or .type == "human")] |
+  [.[] | select(.type == "user") |
+    (.message.content // .content) as $c |
+    select(
+      ($c | type) == "string" or
+      (($c | type) == "array" and ([$c[] | select(.type == "text")] | length > 0))
+    )
+  ] |
   last |
   if . == null then ""
-  elif (.content | type) == "string" then .content
-  elif (.content | type) == "array" then
-    [.content[] | select(.type == "text") | .text] | join(" ")
-  else ""
+  else
+    (.message.content // .content) as $c |
+    if ($c | type) == "string" then $c
+    elif ($c | type) == "array" then
+      [$c[] | select(.type == "text") | .text] | join(" ")
+    else ""
+    end
   end
 ' "$HOOK_TRANSCRIPT_PATH" 2>/dev/null || echo "")
 
 # Extract last assistant response.
+# Claude Code transcript format: top-level .type == "assistant", content at .message.content
 ASSISTANT_RESPONSE=$(jq -rs '
-  [.[] | select(.role == "assistant" or .type == "assistant")] |
+  [.[] | select(.type == "assistant")] |
   last |
   if . == null then ""
-  elif (.content | type) == "string" then .content
-  elif (.content | type) == "array" then
-    [.content[] | select(.type == "text") | .text] | join(" ")
-  else ""
+  else
+    (.message.content // .content) as $c |
+    if ($c | type) == "string" then $c
+    elif ($c | type) == "array" then
+      [$c[] | select(.type == "text") | .text] | join(" ")
+    else ""
+    end
   end
 ' "$HOOK_TRANSCRIPT_PATH" 2>/dev/null || echo "")
 
 # Collect tool calls from the last assistant turn.
 TOOL_CALLS=$(jq -rs '
-  [.[] | select(.role == "assistant" or .type == "assistant")] |
+  [.[] | select(.type == "assistant")] |
   last |
   if . == null then []
-  elif (.content | type) == "array" then
-    [.content[] | select(.type == "tool_use") | .name] | unique
-  else []
+  else
+    (.message.content // .content) as $c |
+    if ($c | type) == "array" then
+      [$c[] | select(.type == "tool_use") | .name] | unique
+    else []
+    end
   end
 ' "$HOOK_TRANSCRIPT_PATH" 2>/dev/null || echo "[]")
 
 # Model from last assistant turn or hook input.
 ASSISTANT_MODEL=$(jq -rs '
-  [.[] | select(.role == "assistant" or .type == "assistant")] |
+  [.[] | select(.type == "assistant")] |
   last |
   .message.model // empty
 ' "$HOOK_TRANSCRIPT_PATH" 2>/dev/null || echo "")
