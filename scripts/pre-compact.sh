@@ -13,15 +13,11 @@ bw_require_session_id
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 CHECKPOINT_ARGS=(
-  checkpoint-session
+  session checkpoint
   --session-id "$BW_SESSION_ID"
   --checkpoint-type "pre_compact"
   --json
 )
-
-if [ -n "$BW_TRANSCRIPT_PATH" ] && [ -f "$BW_TRANSCRIPT_PATH" ]; then
-  CHECKPOINT_ARGS+=(--transcript-path "$BW_TRANSCRIPT_PATH")
-fi
 
 "$BW_BIN" "${CHECKPOINT_ARGS[@]}" 2>/dev/null || {
   bw_log "Failed to checkpoint session $BW_SESSION_ID"

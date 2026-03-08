@@ -13,16 +13,12 @@ bw_require_session_id
 bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
 FINALIZE_ARGS=(
-  finalize-session
+  session finalize
   --session-id "$BW_SESSION_ID"
   --reason "${BW_HOOK_REASON:-other}"
   --agent "claude-code"
   --json
 )
-
-if [ -n "$BW_TRANSCRIPT_PATH" ] && [ -f "$BW_TRANSCRIPT_PATH" ]; then
-  FINALIZE_ARGS+=(--transcript-path "$BW_TRANSCRIPT_PATH")
-fi
 
 "$BW_BIN" "${FINALIZE_ARGS[@]}" 2>/dev/null || {
   bw_log "Failed to finalize session $BW_SESSION_ID"

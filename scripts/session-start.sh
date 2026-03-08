@@ -17,7 +17,7 @@ if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
   echo "export COMMENS_SESSION_ID=\"$BW_SESSION_ID\"" >> "$CLAUDE_ENV_FILE"
 fi
 
-RESULT=$("$BW_BIN" register-session \
+RESULT=$("$BW_BIN" session register \
   --session-id "$BW_SESSION_ID" \
   --model "${BW_MODEL:-}" \
   --source "${BW_HOOK_SOURCE:-startup}" \
