@@ -10,3 +10,6 @@ Thumbs.db
 
 # Commens binary (bundled if present)
 bin/
+
+# Local commens data (created by tests or CLI)
+.commens/

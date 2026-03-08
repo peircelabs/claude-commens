@@ -58,7 +58,7 @@ hook scripts — no manual MCP tool calls required from the agent.
 
 - `set -euo pipefail` in all hook scripts
 - Exit 0 on non-fatal errors (hooks must not crash Claude Code)
-- Use `bw_log` for stderr logging (never echo to stdout except JSON output)
+- Use `commens_log` for stderr logging (never echo to stdout except JSON output)
 - All output JSON must be valid for Claude Code's hook response parser
 
 ## Related Repositories

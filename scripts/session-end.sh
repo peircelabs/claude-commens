@@ -8,20 +8,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/lib/commens-hooks.sh" 2>/dev/null \
   || { echo "Failed to source commens-hooks.sh" >&2; exit 0; }
 
-bw_read_input
-bw_require_session_id
-bw_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
+commens_read_input
+commens_require_session_id
+commens_resolve_binary "${CLAUDE_PLUGIN_ROOT:-}"
 
-FINALIZE_ARGS=(
-  session finalize
-  --session-id "$BW_SESSION_ID"
-  --reason "${BW_HOOK_REASON:-other}"
-  --agent "claude-code"
-  --json
-)
-
-"$BW_BIN" "${FINALIZE_ARGS[@]}" 2>/dev/null || {
-  bw_log "Failed to finalize session $BW_SESSION_ID"
+"$COMMENS" session finalize \
+  --session-id "$HOOK_SESSION_ID" \
+  --reason "${HOOK_REASON:-other}" \
+  --agent "claude-code" \
+  --json 2>/dev/null || {
+  commens_log "Failed to finalize session $HOOK_SESSION_ID"
 }
 
 exit 0
