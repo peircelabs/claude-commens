@@ -1,5 +1,5 @@
 {
-  "name": "commens-sessions",
+  "name": "sessions",
   "version": "0.1.0",
   "description": "Automated session persistence, audit logging, and governance via Hyperledger Fabric hooks and MCP tools.",
   "author": {

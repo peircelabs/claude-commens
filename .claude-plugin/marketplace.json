@@ -1,5 +1,5 @@
 {
-  "name": "claude-commens",
+  "name": "commens",
   "owner": {
     "name": "Peirce Labs",
     "url": "https://github.com/peircelabs"
@@ -9,7 +9,7 @@
   },
   "plugins": [
     {
-      "name": "commens-sessions",
+      "name": "sessions",
       "source": {
         "source": "url",
         "url": "https://github.com/peircelabs/claude-commens.git"
