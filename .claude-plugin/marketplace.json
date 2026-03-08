@@ -10,7 +10,10 @@
   "plugins": [
     {
       "name": "commens-sessions",
-      "source": ".",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/peircelabs/claude-commens.git"
+      },
       "description": "Automated session persistence, audit logging, and governance via Hyperledger Fabric hooks and MCP tools."
     }
   ]
