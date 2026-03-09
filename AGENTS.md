@@ -7,7 +7,7 @@ Canonical guidance for AI coding agents working in this repository.
 - **Project:** claude-commens
 - **Tagline:** Claude Code plugin for Commens enterprise agent governance
 - **Repository:** https://github.com/peircelabs/claude-commens
-- **Version:** 0.1.0
+- **Version:** 0.2.1
 
 ## Overview
 
