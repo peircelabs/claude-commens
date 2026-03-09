@@ -22,7 +22,7 @@ hook scripts — no manual MCP tool calls required from the agent.
     ├── .claude-plugin/
     │   ├── plugin.json           # Plugin manifest
     │   └── marketplace.json      # Marketplace catalog entry
-    ├── .mcp.json                 # MCP server config (commens serve)
+    ├── .mcp.json                 # MCP server config (commens mcp serve)
     ├── hooks/
     │   └── hooks.json            # Hook event → script bindings
     ├── scripts/

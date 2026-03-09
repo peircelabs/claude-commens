@@ -1,5 +1,8 @@
 #!/bin/bash
-# launch-server.sh — Start the Commens MCP server (stdio transport).
+# launch-server.sh — Start the Commens MCP proxy (stdio transport).
+# This starts the per-instance MCP proxy which connects to the shared
+# service over a Unix domain socket. The shared service is auto-started
+# if not already running.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,4 +17,4 @@ if [ "$COMMENS" = "commens" ] && ! command -v commens >/dev/null 2>&1; then
   exit 1
 fi
 
-exec "$COMMENS" serve
+exec "$COMMENS" mcp serve

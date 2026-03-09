@@ -61,7 +61,7 @@ Claude Code
     ├── PreCompact hook ────→ commens checkpoint-session
     ├── SessionEnd hook ────→ commens finalize-session
     │
-    └── MCP server ─────────→ commens serve (stdio)
+    └── MCP server ─────────→ commens mcp serve (stdio)
 ```
 
 ## Related
