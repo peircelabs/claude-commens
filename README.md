@@ -3,8 +3,8 @@
 Claude Code plugin for the [Commens](https://github.com/peircelabs/commens) enterprise
 agent governance platform.
 
-Automatically registers sessions, records interactions, saves checkpoints, and
-archives sessions on the Commens governance ledger via Claude Code's lifecycle hooks.
+Automatically starts sessions, records interactions, and ends sessions on the
+Commens governance ledger via Claude Code's lifecycle hooks.
 
 ## Installation
 
@@ -31,11 +31,10 @@ claude --plugin-dir ./claude-commens
 
 | Hook Event | What Happens |
 |------------|-------------|
-| **SessionStart** (startup) | Registers a new session on the governance ledger |
+| **SessionStart** (startup) | Starts a new session on the governance ledger |
 | **SessionStart** (resume) | Re-activates an existing session |
-| **Stop** | Parses the transcript and records the completed interaction |
-| **PreCompact** | Saves a checkpoint before context compaction |
-| **SessionEnd** | Archives the session with final metadata |
+| **Stop** | Parses the transcript and adds the completed interaction |
+| **SessionEnd** | Ends and archives the session with final metadata |
 
 All hooks are fire-and-forget — they never block Claude Code operation. If the
 `commens` binary is unavailable, hooks exit silently.
@@ -48,18 +47,17 @@ The plugin also starts the Commens MCP server, providing these tools to Claude:
 - `ledger_remember` — Store a memory for future retrieval
 - `ledger_read` / `ledger_write` / `ledger_history` — Direct ledger operations
 
-Session lifecycle tools (`register_session`, `finalize_session`) are called
-automatically by hooks — the agent does not need to invoke them manually.
+Session lifecycle tools (`session_start`, `session_end`) are called automatically
+by hooks — the agent does not need to invoke them manually.
 
 ## Architecture
 
 ```
 Claude Code
     │
-    ├── SessionStart hook ──→ commens register-session
-    ├── Stop hook ──────────→ commens session interaction record
-    ├── PreCompact hook ────→ commens checkpoint-session
-    ├── SessionEnd hook ────→ commens finalize-session
+    ├── SessionStart hook ──→ commens session start
+    ├── Stop hook ──────────→ commens session interaction add
+    ├── SessionEnd hook ────→ commens session end
     │
     └── MCP server ─────────→ commens mcp serve (stdio)
 ```

@@ -1,7 +1,7 @@
 #!/bin/bash
-# record-interaction.sh — Claude Code Stop hook
+# interaction-add.sh — Claude Code Stop hook
 #
-# Records the most recently completed interaction (user prompt + assistant
+# Adds the most recently completed interaction (user prompt + assistant
 # response) as an INTERACTION asset on the Commens governance ledger.
 set -euo pipefail
 
@@ -96,11 +96,7 @@ if [ -z "$USER_PROMPT" ]; then
   exit 0
 fi
 
-INTERACTION_ID=$(printf "%s_%04d" "$HOOK_SESSION_ID" "$NEXT_SEQ")
-
-"$COMMENS" session interaction record \
-  --session-id    "$HOOK_SESSION_ID" \
-  --interaction-id "$INTERACTION_ID" \
+"$COMMENS" session interaction add "$HOOK_SESSION_ID" \
   --sequence-number "$NEXT_SEQ" \
   --user-prompt   "$USER_PROMPT" \
   --assistant-response "$ASSISTANT_RESPONSE" \
@@ -109,6 +105,6 @@ INTERACTION_ID=$(printf "%s_%04d" "$HOOK_SESSION_ID" "$NEXT_SEQ")
   --tool-calls    "$(echo "$TOOL_CALLS" | jq -r '.[]' | tr '\n' ',' | sed 's/,$//')" \
   --json 2>/dev/null \
   && echo "$NEXT_SEQ" > "$COUNTER_FILE" \
-  || commens_log "Failed to record interaction $INTERACTION_ID for session $HOOK_SESSION_ID"
+  || commens_log "Failed to add interaction for session $HOOK_SESSION_ID"
 
 exit 0

@@ -1,7 +1,7 @@
 #!/bin/bash
 # session-start.sh — Claude Code SessionStart hook (matcher: startup)
 #
-# Registers a new active session on the Commens governance ledger.
+# Starts a new active session on the Commens governance ledger.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -17,15 +17,14 @@ if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
   echo "export COMMENS_SESSION_ID=\"$HOOK_SESSION_ID\"" >> "$CLAUDE_ENV_FILE"
 fi
 
-RESULT=$("$COMMENS" session register \
-  --session-id "$HOOK_SESSION_ID" \
+RESULT=$("$COMMENS" session start "$HOOK_SESSION_ID" \
   --model "${HOOK_MODEL:-}" \
   --source "${HOOK_SOURCE:-startup}" \
   --agent "claude-code" \
   --json 2>/dev/null) || true
 
 if [ -n "$RESULT" ]; then
-  commens_output_context "Session $HOOK_SESSION_ID registered on Commens governance ledger."
+  commens_output_context "Session $HOOK_SESSION_ID started on Commens governance ledger."
 fi
 
 exit 0

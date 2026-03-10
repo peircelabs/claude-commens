@@ -9,7 +9,7 @@
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-start.sh",
             "timeout": 10000,
-            "statusMessage": "Registering session on Commens ledger..."
+            "statusMessage": "Starting session on Commens ledger..."
           }
         ]
       },
@@ -20,7 +20,7 @@
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/scripts/session-resume.sh",
             "timeout": 10000,
-            "statusMessage": "Resuming session on Commens ledger..."
+            "statusMessage": "Starting session on Commens ledger (resume)..."
           }
         ]
       }
@@ -36,23 +36,12 @@
         ]
       }
     ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pre-compact.sh",
-            "timeout": 10000
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/record-interaction.sh",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/interaction-add.sh",
             "timeout": 15000
           }
         ]

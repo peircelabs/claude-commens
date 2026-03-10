@@ -17,8 +17,7 @@ if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
   echo "export COMMENS_SESSION_ID=\"$HOOK_SESSION_ID\"" >> "$CLAUDE_ENV_FILE"
 fi
 
-"$COMMENS" session register \
-  --session-id "$HOOK_SESSION_ID" \
+"$COMMENS" session start "$HOOK_SESSION_ID" \
   --model "${HOOK_MODEL:-}" \
   --source "resume" \
   --agent "claude-code" \

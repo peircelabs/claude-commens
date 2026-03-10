@@ -7,14 +7,14 @@ Canonical guidance for AI coding agents working in this repository.
 - **Project:** claude-commens
 - **Tagline:** Claude Code plugin for Commens enterprise agent governance
 - **Repository:** https://github.com/peircelabs/claude-commens
-- **Version:** 0.2.1
+- **Version:** 0.3.0
 
 ## Overview
 
 A self-contained Claude Code plugin that integrates with the Commens governance
-ledger via lifecycle hooks and MCP tools. Session registration, interaction
-recording, checkpointing, and finalization are all handled automatically by
-hook scripts — no manual MCP tool calls required from the agent.
+ledger via lifecycle hooks and MCP tools. Session start/end and interaction
+recording are all handled automatically by hook scripts — no manual MCP tool
+calls required from the agent.
 
 ## Repository Layout
 
@@ -29,11 +29,10 @@ hook scripts — no manual MCP tool calls required from the agent.
     │   ├── lib/
     │   │   └── commens-hooks.sh  # Tailored bash library (Claude-specific)
     │   ├── launch-server.sh      # MCP server launcher
-    │   ├── session-start.sh      # SessionStart (startup) → register-session
-    │   ├── session-resume.sh     # SessionStart (resume) → register-session
-    │   ├── session-end.sh        # SessionEnd → finalize-session
-    │   ├── pre-compact.sh        # PreCompact → checkpoint-session
-    │   └── record-interaction.sh # Stop → parse transcript, record interaction
+    │   ├── session-start.sh      # SessionStart (startup) → session start
+    │   ├── session-resume.sh     # SessionStart (resume) → session start
+    │   ├── session-end.sh        # SessionEnd → session end
+    │   └── interaction-add.sh    # Stop → parse transcript, interaction add
     ├── CLAUDE.md                 # Context document for agent sessions
     ├── AGENTS.md                 # This file
     └── README.md                 # Installation and usage
@@ -42,11 +41,10 @@ hook scripts — no manual MCP tool calls required from the agent.
 
 | Event | Matcher | Script | Purpose |
 |-------|---------|--------|---------|
-| SessionStart | startup | session-start.sh | Register new session on ledger |
+| SessionStart | startup | session-start.sh | Start new session on ledger |
 | SessionStart | resume | session-resume.sh | Re-activate existing session |
-| SessionEnd | * | session-end.sh | Archive session to ledger |
-| PreCompact | * | pre-compact.sh | Save checkpoint before compaction |
-| Stop | — | record-interaction.sh | Record each completed interaction |
+| SessionEnd | * | session-end.sh | End and archive session on ledger |
+| Stop | — | interaction-add.sh | Add each completed interaction |
 
 ## Environment Variables
 
